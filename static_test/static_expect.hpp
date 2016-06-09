@@ -494,6 +494,7 @@ struct Is {
 };
 
 
+
 template<class T>
 struct EvalsTo {
     template<class Arg>
@@ -551,18 +552,20 @@ struct IsTrue {
 };
 
 
-    template<int i>
-    struct Eq {
+
+    template<int N>
+    struct Eq
+    {
         template<class T>
-        struct apply : std::integral_constant<bool, T::value == i> {};
+        struct apply : std::integral_constant<bool, static_cast<int>(T::value) == N>
+        {};
     };
-
-
 
 } // namespace static_matchers_impl
 
 namespace static_matchers {
     using static_matchers_impl::Is;
+    using static_matchers_impl::Eq;
 }
 
 

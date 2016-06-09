@@ -1,4 +1,4 @@
-//#define ST_STATIC_EXPECT_CONFIG_STATIC_ASSERT 0
+#define ST_STATIC_EXPECT_CONFIG_STATIC_ASSERT 0
 
 #include <static_test/static_expect.hpp>
 
@@ -52,4 +52,14 @@ template<template<class...> class L,  class... T> struct mp_size_impl<L<T...>>
 };
 
 template<class L> using mp_size = typename mp_size_impl<L>::type;
+
+
+//  +----------+
+//  |  Length  |
+//  +----------+
+
+template<class... T> using mp_length = std::integral_constant<std::size_t, sizeof...(T)>;
+
+STATIC_EXPECT_THAT((mp_length<int, int, int>), Eq<3> );
+
 
